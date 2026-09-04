@@ -5,6 +5,8 @@ import com.fandevv.clientes.entities.Client;
 import com.fandevv.clientes.repositories.ClientRepository;
 import com.fandevv.clientes.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,5 +20,11 @@ public class ClientService {
     public ClientDTO findById(Long id) {
         Client client = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
         return new ClientDTO(client);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ClientDTO> findAll(Pageable pageble) {
+        Page<Client> result = repository.findAll(pageble);
+        return result.map(x -> new ClientDTO(x));
     }
 }
