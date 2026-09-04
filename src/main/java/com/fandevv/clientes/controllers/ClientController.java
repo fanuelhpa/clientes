@@ -1,8 +1,10 @@
 package com.fandevv.clientes.controllers;
 
+import com.fandevv.clientes.dto.ClientDTO;
 import com.fandevv.clientes.entities.Client;
 import com.fandevv.clientes.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,8 @@ public class ClientController {
     }
 
     @GetMapping(value = "/{id}")
-    public Client findById(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+        ClientDTO client = service.findById(id);
+        return ResponseEntity.ok(client);
     }
 }
