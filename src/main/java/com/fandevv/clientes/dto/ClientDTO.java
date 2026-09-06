@@ -1,15 +1,21 @@
 package com.fandevv.clientes.dto;
 
 import com.fandevv.clientes.entities.Client;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
 public class ClientDTO {
 
     private Long id;
+
+    @NotBlank(message = "Campo Requerido")
     private String name;
     private String cpf;
     private Double income;
+
+    @PastOrPresent(message = "Campo não pode ser data futura")
     private LocalDate birthDate;
     private Integer children;
 
